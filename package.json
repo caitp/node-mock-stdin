@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/caitp/node-mock-stdin/issues"
   },
-  "homepage": "https://github.com/caitp/node-mock-stdin"
+  "homepage": "https://github.com/caitp/node-mock-stdin",
+  "devDependencies": {
+    "nodeunit": "^0.9.0"
+  }
 }
