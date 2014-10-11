@@ -1,3 +1,10 @@
 language: node_js
 node_js:
   - '0.10'
+
+install:
+  time npm install
+  time npm install coveralls jscoverage
+
+script:
+  npm run coveralls

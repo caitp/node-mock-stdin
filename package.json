@@ -4,7 +4,8 @@
   "description": "Mock STDIN file descriptor in Node.js",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "nodeunit test/"
+    "test": "nodeunit test/",
+    "coveralls": "jscoverage lib && COVERAGE=1 nodeunit --reporter=lcov test | coveralls"
   },
   "repository": {
     "type": "git",
