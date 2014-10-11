@@ -14,6 +14,6 @@ STATUS=$?
 
 LCOV="$( node_modules/.bin/nodeunit --reporter=lcov test )"
 
-echo $LCOV | node_modules/.bin/coveralls
+echo "$LCOV" | node_modules/.bin/coveralls
 
 exit $STATUS
