@@ -79,7 +79,7 @@ Alias for [MockSTDIN#send(null)](#mockstdinsend). Results in dispatching an `end
 
 ---
 
-##LICENSE
+##[LICENSE](LICENSE)
 
 The MIT License (MIT)
 
