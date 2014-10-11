@@ -7,4 +7,4 @@ install:
   time npm install coveralls jscoverage
 
 script:
-  npm run coveralls
+  tools/travis.sh
