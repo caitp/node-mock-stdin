@@ -12,7 +12,7 @@ node_modules/.bin/jscoverage lib
 node_modules/.bin/nodeunit test
 STATUS=$?
 
-"$( node_modules/.bin/nodeunit --reporter=lcov test )" > .lcov
+node_modules/.bin/nodeunit --reporter=lcov test > .lcov
 
 cat .lcov | node_modules/.bin/coveralls
 
