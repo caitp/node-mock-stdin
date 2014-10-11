@@ -1,6 +1,6 @@
 #node-mock-stdin
 
-[![Build Status](https://travis-ci.org/caitp/node-mock-stdin.svg?branch=master)](https://travis-ci.org/caitp/node-mock-stdin)
+[![Build Status](https://travis-ci.org/caitp/node-mock-stdin.svg?branch=master)](https://travis-ci.org/caitp/node-mock-stdin) [![Coverage Status](https://img.shields.io/coveralls/caitp/node-mock-stdin.svg)](https://coveralls.io/r/caitp/node-mock-stdin?branch=master)
 
 Provide a mock readable stream, useful for testing interactive CLI applications.
 
