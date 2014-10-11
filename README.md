@@ -1,5 +1,7 @@
 #node-mock-stdin
 
+[![Build Status](https://travis-ci.org/caitp/node-mock-stdin.svg?branch=master)](https://travis-ci.org/caitp/node-mock-stdin)
+
 Provide a mock readable stream, useful for testing interactive CLI applications.
 
 Maybe simple mocks for other standard files wouldn't be a terrible idea, if anyone
