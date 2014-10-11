@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "nodeunit test/",
-    "coveralls": "jscoverage lib && COVERAGE=1 nodeunit --reporter=lcov test | coveralls"
+    "coveralls": "node_modules/.bin/jscoverage lib && COVERAGE=1 nodeunit --reporter=lcov test | coveralls"
   },
   "repository": {
     "type": "git",
