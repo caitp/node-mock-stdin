@@ -1,7 +1,7 @@
 {
-  "name": "mockfd",
+  "name": "mock-stdin",
   "version": "0.1.0",
-  "description": "Mock for standard file descriptors such as stdin",
+  "description": "Mock STDIN file descriptor in Node.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,7 +20,7 @@
   "author": "Caitlin Potter <caitpotter88@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/caitp/node-mockfd/issues"
+    "url": "https://github.com/caitp/node-mock-stdin/issues"
   },
-  "homepage": "https://github.com/caitp/node-mockfd"
+  "homepage": "https://github.com/caitp/node-mock-stdin"
 }
