@@ -2,9 +2,9 @@
   "name": "mock-stdin",
   "version": "0.1.0",
   "description": "Mock STDIN file descriptor in Node.js",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodeunit test/"
   },
   "repository": {
     "type": "git",
