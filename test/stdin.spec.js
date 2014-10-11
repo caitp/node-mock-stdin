@@ -1,4 +1,4 @@
-var mock = require("../lib");
+var mock = process.env.COVERAGE ? require("../lib-cov") : require("../lib");
 var stdin;
 module.exports.stdin = {
   setUp: function(cb) {
