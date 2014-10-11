@@ -12,8 +12,8 @@ node_modules/.bin/jscoverage lib
 node_modules/.bin/nodeunit test
 STATUS=$?
 
-LCOV="$( node_modules/.bin/nodeunit --reporter=lcov test )"
+"$( node_modules/.bin/nodeunit --reporter=lcov test )" > .lcov
 
-echo "$LCOV" | node_modules/.bin/coveralls
+cat .lcov | node_modules/.bin/coveralls
 
 exit $STATUS
