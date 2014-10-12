@@ -200,5 +200,23 @@ module.exports.stdin = {
       test.ok(called, "'end' event was not received.");
       test.done();
     });
+  },
+
+
+  "MockSTDIN#reset()": function (test) {
+    var received = '';
+    process.stdin.setEncoding('utf8');
+    process.stdin.on("data", function(data) {
+      received += data;
+    });
+    process.stdin.end();
+    process.stdin.reset();
+
+    test.doesNotThrow(function() {
+      process.stdin.send("Please don't throw, little lamb!");
+    }, "should not throw when sending data after end when reset() called");
+
+    test.equal(received, "Please don't throw, little lamb!");
+    test.done();
   }
 };

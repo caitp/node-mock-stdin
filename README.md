@@ -15,6 +15,7 @@ feels like those are needed. Patches welcome.
   - [send()](#mockstdinsend)
   - [end()](#mockstdinend)
   - [restore()](#mockstdinrestore)
+  - [reset()](#mockstdinreset)
 
 ---
 
@@ -76,6 +77,26 @@ stdin.end();
 ```
 
 Alias for [MockSTDIN#send(null)](#mockstdinsend). Results in dispatching an `end` event.
+
+**return value**: The `MockSTDIN` instance, for chaining.
+
+---
+
+######MockSTDIN#reset()
+
+**example**
+
+```js
+var stdin = require('mock-stdin').stdin();
+stdin.end();
+stdin.reset();
+stdin.send("some data");
+```
+
+Ordinarily, a Readable stream will throw when attempting to push after an EOF. This routine will
+reset the `ended` state of a Readable stream, preventing it from throwing post-EOF. This prevents
+being required to re-create a mock STDIN instance during certain tests where a fresh stdin is
+required.
 
 **return value**: The `MockSTDIN` instance, for chaining.
 
