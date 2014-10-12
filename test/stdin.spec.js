@@ -74,10 +74,8 @@ module.exports.stdin = {
     test.equals(received, data.join("\n"),
         "received data should be array joined by linefeeds.");
     test.deepEqual(errors, [], "'error' event should not be received.");
-    setTimeout(function() {
-      test.ok(!endCalled, "'end' event should not be received.");
-      test.done();
-    });
+    test.ok(!endCalled, "'end' event should not be received.");
+    test.done();
   },
 
 
@@ -110,10 +108,8 @@ module.exports.stdin = {
     test.ok(called, "'data' event was not received.");
     test.equals(received, data, "received data should match what was sent.");
     test.deepEqual(errors, [], "'error' event should not be received.");
-    setTimeout(function() {
-      test.ok(!endCalled, "'end' event should not be received.");
-      test.done();
-    });
+    test.ok(!endCalled, "'end' event should not be received.");
+    test.done();
   },
 
 
@@ -146,10 +142,8 @@ module.exports.stdin = {
     test.ok(called, "'data' event was not received.");
     test.equals(received, data, "received data should match what was sent.");
     test.deepEqual(errors, [], "'error' event should not be received.");
-    setTimeout(function() {
-      test.ok(!endCalled, "'end' event should not be received.");
-      test.done();
-    });
+    test.ok(!endCalled, "'end' event should not be received.");
+    test.done();
   },
 
 
@@ -171,10 +165,8 @@ module.exports.stdin = {
     process.stdin.send(null);
     test.ok(!dataCalled, "'data' event should not be received.");
     test.deepEqual(errors, [], "'error' event should not be received.");
-    setTimeout(function() {
-      test.ok(called, "'end' event was not received.");
-      test.done();
-    });
+    test.ok(called, "'end' event was not received.");
+    test.done();
   },
 
 
@@ -196,8 +188,11 @@ module.exports.stdin = {
     process.stdin.end();
     test.ok(!dataCalled, "'data' event should not be received.");
     test.deepEqual(errors, [], "'error' event should not be received.");
+    test.ok(called, "'end' event was not received.");
+
+    called = false;
     setTimeout(function() {
-      test.ok(called, "'end' event was not received.");
+      test.ok(!called, "'end' event should not be dispatched more than once.");
       test.done();
     });
   },
