@@ -82,7 +82,7 @@ Alias for [MockSTDIN#send(null)](#mockstdinsend). Results in dispatching an `end
 
 ---
 
-######MockSTDIN#reset()
+######MockSTDIN#reset(removeListeners)
 
 **example**
 
@@ -97,6 +97,14 @@ Ordinarily, a Readable stream will throw when attempting to push after an EOF. T
 reset the `ended` state of a Readable stream, preventing it from throwing post-EOF. This prevents
 being required to re-create a mock STDIN instance during certain tests where a fresh stdin is
 required.
+
+If the `removeListeners` flag is set to `true`, all event listeners will also be reset. This is
+useful in cases where you need to emulate restarting an entire application, without fully 
+re-creating the mock object.
+
+**parameters**
+  - `removeListeners`: Boolean value which, when set to `true`, will remove all event listeners
+  attached to the stream.
 
 **return value**: The `MockSTDIN` instance, for chaining.
 
