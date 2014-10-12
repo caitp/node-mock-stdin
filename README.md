@@ -82,6 +82,25 @@ Alias for [MockSTDIN#send(null)](#mockstdinsend). Results in dispatching an `end
 
 ---
 
+######MockSTDIN#restore()
+
+**example**
+
+```js
+var stdin = require('mock-stdin').stdin();
+// process.stdin is now a mock stream
+stdin.restore();
+// process.stdin is returned to its original state
+```
+
+Restore the target of the mocked stream. If only a single mock stream is created, will restore
+the original `stdin` TTY stream. If multiple mock streams are created, it will restore the
+stream which was active at the time the mock was created.
+
+**return value**: The `MockSTDIN` instance, for chaining.
+
+---
+
 ######MockSTDIN#reset(removeListeners)
 
 **example**
