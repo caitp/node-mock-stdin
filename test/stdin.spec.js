@@ -205,7 +205,12 @@ module.exports.stdin = {
       received += data;
     });
     process.stdin.end();
+    test.ok(process.stdin._readableState.ended, "stream should be 'ended'.");
+    test.ok(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
     process.stdin.reset();
+
+    test.ok(!process.stdin._readableState.ended, "'ended' flag should be reset.");
+    test.ok(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
 
     test.doesNotThrow(function() {
       process.stdin.send("Please don't throw, little lamb!");
