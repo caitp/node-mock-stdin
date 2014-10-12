@@ -12,10 +12,10 @@ feels like those are needed. Patches welcome.
 - **Module**
   - [stdin()](#modulestdin)
 - **MockSTDIN**
-  - [send()](#mockstdinsend)
+  - [send()](#mockstdinsenddata)
   - [end()](#mockstdinend)
   - [restore()](#mockstdinrestore)
-  - [reset()](#mockstdinreset)
+  - [reset()](#mockstdinresetremovelisteners)
 
 ---
 
