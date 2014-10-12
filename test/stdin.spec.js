@@ -218,5 +218,32 @@ module.exports.stdin = {
 
     test.equal(received, "Please don't throw, little lamb!");
     test.done();
+  },
+
+
+  "MockSTDIN#reset(true)": function (test) {
+    var received = '';
+    process.stdin.setEncoding('utf8');
+    process.stdin.on("data", function(data) {
+      received += data;
+    });
+    process.stdin.end();
+    test.ok(process.stdin._readableState.ended, "stream should be 'ended'.");
+    test.ok(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
+    process.stdin.reset(true);
+
+    process.stdin.on("data", function(data) {
+      received += data;
+    });
+
+    test.ok(!process.stdin._readableState.ended, "'ended' flag should be reset.");
+    test.ok(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
+
+    test.doesNotThrow(function() {
+      process.stdin.send("Please don't throw, little lamb!");
+    }, "should not throw when sending data after end when reset() called");
+
+    test.equal(received, "Please don't throw, little lamb!");
+    test.done();
   }
 };
