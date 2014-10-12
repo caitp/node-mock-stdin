@@ -1,6 +1,6 @@
 {
   "name": "mock-stdin",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Mock STDIN file descriptor in Node.js",
   "main": "./lib/index.js",
   "scripts": {
