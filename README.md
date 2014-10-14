@@ -39,13 +39,13 @@ registered.
 
 ---
 
-######MockSTDIN#send(data)
+######MockSTDIN#send(data, encoding)
 
 **example**
 
 ```js
 var stdin = require('mock-stdin').stdin();
-stdin.send("Some text");
+stdin.send("Some text", "ascii");
 stdin.send(Buffer("Some text", "Some optional encoding"));
 stdin.send([
   "Array of lines",
@@ -62,6 +62,9 @@ dispatched.
 **parameters**
   - `data`: A `String`, `Buffer`, `Array<String>`, or `null`. The `data` parameter will result in
     the default encoding if specified as a string or array of strings.
+  - `encoding`: An optional encoding which is used when `data` is a `String`.
+      Node.js's internal Readable Stream will convert the specified encoding into the output
+      encoding, which is transcoded if necessary.
 
 **return value**: The `MockSTDIN` instance, for chaining.
 

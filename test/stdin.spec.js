@@ -169,6 +169,50 @@ module.exports.stdin = {
     test.done();
   },
 
+  "MockSTDIN#send(<Array>, <Encoding>)": function (test) {
+    var endCalled = false;
+    var data = '';
+    var errors = [];
+    process.stdin.setEncoding("utf8");
+    process.stdin.on("error", function(error) {
+      errors.push(error);
+    });
+    process.stdin.on("end", function() {
+      endCalled = true;
+    });
+    process.stdin.on("data", function(text) {
+      data += text;
+    });
+    process.stdin.resume();
+    test.throws(function() {
+      process.stdin.send(["44GT44KT44Gr44Gh44Gv", "5LiW55WM"], "base64");
+    }, TypeError, "should have thrown.");
+    test.done();
+  },
+
+
+  "MockSTDIN#send(<String>, <Encoding>)": function (test) {
+    var endCalled = false;
+    var data = '';
+    var errors = [];
+    process.stdin.setEncoding("utf8");
+    process.stdin.on("error", function(error) {
+      errors.push(error);
+    });
+    process.stdin.on("end", function() {
+      endCalled = true;
+    });
+    process.stdin.on("data", function(text) {
+      data += text;
+    });
+    process.stdin.resume();
+    process.stdin.send("44GT44KT44Gr44Gh44Gv5LiW55WM", "base64");
+    test.equals(data, "こんにちは世界", "'data' should be decoded from base64.");
+    test.deepEqual(errors, [], "'error' event should not be received.");
+    test.ok(!endCalled, "'end' event should not be received.");
+    test.done();
+  },
+
 
   "MockSTDIN#end()": function (test) {
     var called = false;
