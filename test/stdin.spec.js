@@ -289,5 +289,26 @@ module.exports.stdin = {
 
     test.equal(received, "Please don't throw, little lamb!");
     test.done();
+  },
+
+
+  "MockSTDIN#setRawMode(<String>)": function (test) {
+    function thrower () {
+      process.stdin.setRawMode('');
+    }
+    test.throws(thrower, TypeError);
+    test.done();
+  },
+
+
+  "MockSTDIN#SetRawMode(<Boolean>)": function (test) {
+    function notthrower () {
+      process.stdin.setRawMode(true);
+      process.stdin.setRawMode(false);
+      process.stdin.end();
+    }
+
+    test.doesNotThrow(notthrower);
+    test.done();
   }
 };
