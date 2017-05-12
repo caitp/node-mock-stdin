@@ -1,4 +1,4 @@
-#node-mock-stdin
+# node-mock-stdin
 
 [![Build Status](https://travis-ci.org/caitp/node-mock-stdin.svg?branch=master)](https://travis-ci.org/caitp/node-mock-stdin) [![Coverage Status](https://img.shields.io/coveralls/caitp/node-mock-stdin.svg)](https://coveralls.io/r/caitp/node-mock-stdin?branch=master) [![NPM Version](http://img.shields.io/npm/v/mock-stdin.svg)](https://www.npmjs.org/package/mock-stdin)
 
@@ -7,19 +7,19 @@ Provide a mock readable stream, useful for testing interactive CLI applications.
 Maybe simple mocks for other standard files wouldn't be a terrible idea, if anyone
 feels like those are needed. Patches welcome.
 
-##API
+## API
 
 - **Module**
   - [stdin()](#modulestdin)
 - **MockSTDIN**
-  - [send()](#mockstdinsenddata)
+  - [send()](#mockstdinsenddata-encoding)
   - [end()](#mockstdinend)
   - [restore()](#mockstdinrestore)
   - [reset()](#mockstdinresetremovelisteners)
 
 ---
 
-######Module#stdin()
+### Module.stdin()
 
 **example**
 
@@ -39,7 +39,7 @@ registered.
 
 ---
 
-######MockSTDIN#send(data, encoding)
+### MockSTDIN.send(data, encoding)
 
 **example**
 
@@ -70,7 +70,7 @@ dispatched.
 
 ---
 
-######MockSTDIN#end()
+### MockSTDIN.end()
 
 **example**
 
@@ -79,13 +79,13 @@ var stdin = require('mock-stdin').stdin();
 stdin.end();
 ```
 
-Alias for [MockSTDIN#send(null)](#mockstdinsend). Results in dispatching an `end` event.
+Alias for [MockSTDIN.send(null)](#mockstdinsend). Results in dispatching an `end` event.
 
 **return value**: The `MockSTDIN` instance, for chaining.
 
 ---
 
-######MockSTDIN#restore()
+### MockSTDIN.restore()
 
 **example**
 
@@ -104,7 +104,7 @@ stream which was active at the time the mock was created.
 
 ---
 
-######MockSTDIN#reset(removeListeners)
+### MockSTDIN.reset(removeListeners)
 
 **example**
 
@@ -132,7 +132,7 @@ re-creating the mock object.
 
 ---
 
-##[LICENSE](LICENSE)
+## [LICENSE](LICENSE)
 
 The MIT License (MIT)
 
