@@ -4,7 +4,7 @@
   "description": "Mock STDIN file descriptor in Node.js",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "nodeunit test/"
+    "test": "mocha test/"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/caitp/node-mock-stdin",
   "devDependencies": {
-    "nodeunit": "^0.11.3"
+    "mocha": "^6.2.2"
   }
 }

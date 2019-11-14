@@ -1,55 +1,40 @@
-var mock = process.env.COVERAGE ? require("../lib-cov") : require("../lib");
-var stdin;
-module.exports.stdin = {
-  setUp: function(cb) {
+let mock = process.env.COVERAGE ? require("../lib-cov") : require("../lib");
+let assert = require("assert");
+
+describe("stdin", function() {
+  let stdin;
+  beforeEach(function() {
     stdin = mock.stdin();
-    cb();
-  },
-
-
-  tearDown: function(cb) {
+  });
+  afterEach(function() {
     process.stdin.restore();
-    cb();
-  },
+    stdin = void 0;
+  });
 
+  it("process.stdin instanceof MockSTDIN", function() {
+    assert(process.stdin instanceof mock.stdin.Class);
+  });
 
-  "process.stdin instanceof MockSTDIN": function (test) {
-    test.ok(process.stdin instanceof mock.stdin.Class);
-    test.done();
-  },
-
-
-  "MockSTDIN#openStdin()": function (test) {
-    test.doesNotThrow(function() {
+  it("MockSTDIN#openStdin() should not throw", function() {
+    assert.doesNotThrow(function() {
       process.openStdin();
-    }, "process.openStdin() should not throw.");
-    test.done();
-  },
+    });
+  });
 
-
-  "MockSTDIN#restore()": function (test) {
+  it("MockSTDIN#restore() should restore previous object", function() {
     process.stdin.restore();
-    test.ok(!(process.stdin instanceof mock.stdin.Class),
-        "restore() should restore previous object");
+    assert(!(process.stdin instanceof mock.stdin.Class));
     mock.stdin();
-    test.done();
-  },
+  });
 
-
-  "MockSTDIN#setEncoding()": function (test) {
-    test.doesNotThrow(function() {
+  it("MockSTDIN#setEncoding() should not throw", function() {
+    assert.doesNotThrow(function() {
       process.stdin.setEncoding("utf8");
-    }, "process.stdin.setEncoding() should not throw.");
-    test.done();
-  },
+    });
+  });
 
-
-  "MockSTDIN#send(<Array>)": function (test) {
-    var received;
-    var called = false;
-    var errors = [];
-    var endCalled = false;
-    var data = [
+  it("MockSTDIN#send(<Array>)", function() {
+    let data = [
       "To whom it may concern,",
       "",
       "I am a piece of mock data.",
@@ -57,6 +42,10 @@ module.exports.stdin = {
       "Regards,",
       "Cortana"
     ];
+    let called = false;
+    let received;
+    let endCalled = false;
+    let errors = [];
     process.stdin.setEncoding("utf8");
     process.stdin.on("data", function(data) {
       called = true;
@@ -70,21 +59,15 @@ module.exports.stdin = {
     });
     process.stdin.resume();
     stdin.send(data);
-    test.ok(called, "'data' event was not received.");
-    test.equals(received, data.join("\n"),
+    assert(called, "'data' event was not received.");
+    assert.equal(received, data.join("\n"),
         "received data should be array joined by linefeeds.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(!endCalled, "'end' event should not be received.");
-    test.done();
-  },
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(!endCalled, "'end' event should not be received.");
+  });
 
-
-  "MockSTDIN#send(<String>)": function (test) {
-    var received;
-    var called = false;
-    var errors = [];
-    var endCalled = false;
-    var data = [
+  it("MockSTDIN#send(<String>)", function() {
+    let data = [
       "To whom it may concern,",
       "",
       "I am a piece of mock data.",
@@ -92,6 +75,10 @@ module.exports.stdin = {
       "Regards,",
       "Cortana"
     ].join("\n");
+    let received;
+    let called = false;
+    let errors = [];
+    let endCalled = false;
     process.stdin.setEncoding("utf8");
     process.stdin.on("data", function(data) {
       called = true;
@@ -105,20 +92,14 @@ module.exports.stdin = {
     });
     process.stdin.resume();
     process.stdin.send(data);
-    test.ok(called, "'data' event was not received.");
-    test.equals(received, data, "received data should match what was sent.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(!endCalled, "'end' event should not be received.");
-    test.done();
-  },
+    assert(called, "'data' event was not received.");
+    assert.equal(received, data, "received data should match what was sent.");
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(!endCalled, "'end' event should not be received.");
+  });
 
-
-  "MockSTDIN#send(<Buffer>)": function (test) {
-    var received;
-    var called = false;
-    var errors = [];
-    var endCalled = false;
-    var data = [
+  it("MockSTDIN#send(<Buffer>)", function () {
+    let data = [
       "To whom it may concern,",
       "",
       "I am a piece of mock data.",
@@ -126,6 +107,10 @@ module.exports.stdin = {
       "Regards,",
       "Cortana"
     ].join("\n");
+    let received;
+    let called = false;
+    let errors = [];
+    let endCalled = false;
     process.stdin.setEncoding("utf8");
     process.stdin.on("data", function(data) {
       called = true;
@@ -138,19 +123,17 @@ module.exports.stdin = {
       endCalled = true;
     });
     process.stdin.resume();
-    process.stdin.send(new Buffer(data, "utf8"));
-    test.ok(called, "'data' event was not received.");
-    test.equals(received, data, "received data should match what was sent.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(!endCalled, "'end' event should not be received.");
-    test.done();
-  },
+    process.stdin.send(Buffer.from(data, "utf8"));
+    assert(called, "'data' event was not received.");
+    assert.equal(received, data, "received data should match what was sent.");
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(!endCalled, "'end' event should not be received.");
+  });
 
-
-  "MockSTDIN#send(<Null>)": function (test) {
-    var called = false;
-    var dataCalled = false;
-    var errors = [];
+  it("MockSTDIN#send(<Null>)", function () {
+    let called = false;
+    let dataCalled = false;
+    let errors = [];
     process.stdin.setEncoding("utf8");
     process.stdin.on("error", function(error) {
       errors.push(error);
@@ -163,16 +146,16 @@ module.exports.stdin = {
     });
     process.stdin.resume();
     process.stdin.send(null);
-    test.ok(!dataCalled, "'data' event should not be received.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(called, "'end' event was not received.");
-    test.done();
-  },
+    assert(!dataCalled, "'data' event should not be received.");
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(called, "'end' event was not received.");
+  });
 
-  "MockSTDIN#send(<Array>, <Encoding>)": function (test) {
-    var endCalled = false;
-    var data = '';
-    var errors = [];
+
+  it("MockSTDIN#send(<Array>, <Encoding>)", function () {
+    let endCalled = false;
+    let data = '';
+    let errors = [];
     process.stdin.setEncoding("utf8");
     process.stdin.on("error", function(error) {
       errors.push(error);
@@ -184,17 +167,15 @@ module.exports.stdin = {
       data += text;
     });
     process.stdin.resume();
-    test.throws(function() {
+    assert.throws(function() {
       process.stdin.send(["44GT44KT44Gr44Gh44Gv", "5LiW55WM"], "base64");
     }, TypeError, "should have thrown.");
-    test.done();
-  },
+  });
 
-
-  "MockSTDIN#send(<String>, <Encoding>)": function (test) {
-    var endCalled = false;
-    var data = '';
-    var errors = [];
+  it("MockSTDIN#send(<String>, <Encoding>)", function() {
+    let endCalled = false;
+    let data = '';
+    let errors = [];
     process.stdin.setEncoding("utf8");
     process.stdin.on("error", function(error) {
       errors.push(error);
@@ -207,17 +188,15 @@ module.exports.stdin = {
     });
     process.stdin.resume();
     process.stdin.send("44GT44KT44Gr44Gh44Gv5LiW55WM", "base64");
-    test.equals(data, "こんにちは世界", "'data' should be decoded from base64.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(!endCalled, "'end' event should not be received.");
-    test.done();
-  },
+    assert.equal(data, "こんにちは世界", "'data' should be decoded from base64.");
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(!endCalled, "'end' event should not be received.");
+  });
 
-
-  "MockSTDIN#end()": function (test) {
-    var called = false;
-    var dataCalled = false;
-    var errors = [];
+  it("MockSTDIN#end()", function(done) {
+    let called = false;
+    let dataCalled = false;
+    let errors = [];
     process.stdin.setEncoding("utf8");
     process.stdin.on("error", function(error) {
       errors.push(error);
@@ -230,85 +209,76 @@ module.exports.stdin = {
     });
     process.stdin.resume();
     process.stdin.end();
-    test.ok(!dataCalled, "'data' event should not be received.");
-    test.deepEqual(errors, [], "'error' event should not be received.");
-    test.ok(called, "'end' event was not received.");
+    assert(!dataCalled, "'data' event should not be received.");
+    assert.deepEqual(errors, [], "'error' event should not be received.");
+    assert(called, "'end' event was not received.");
 
     called = false;
     setTimeout(function() {
-      test.ok(!called, "'end' event should not be dispatched more than once.");
-      test.done();
+      assert(!called, "'end' event should not be dispatched more than once.");
+      done();
     });
-  },
+  });
 
 
-  "MockSTDIN#reset()": function (test) {
-    var received = '';
+  it("MockSTDIN#reset()", function() {
+    let received = '';
     process.stdin.setEncoding('utf8');
     process.stdin.on("data", function(data) {
       received += data;
     });
     process.stdin.end();
-    test.ok(process.stdin._readableState.ended, "stream should be 'ended'.");
-    test.ok(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
+    assert(process.stdin._readableState.ended, "stream should be 'ended'.");
+    assert(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
     process.stdin.reset();
 
-    test.ok(!process.stdin._readableState.ended, "'ended' flag should be reset.");
-    test.ok(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
+    assert(!process.stdin._readableState.ended, "'ended' flag should be reset.");
+    assert(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
 
-    test.doesNotThrow(function() {
+    assert.doesNotThrow(function() {
       process.stdin.send("Please don't throw, little lamb!");
     }, "should not throw when sending data after end when reset() called");
 
-    test.equal(received, "Please don't throw, little lamb!");
-    test.done();
-  },
+    assert.equal(received, "Please don't throw, little lamb!");
+  });
 
-
-  "MockSTDIN#reset(true)": function (test) {
-    var received = '';
+  it("MockSTDIN#reset(true)", function() {
+    let received = '';
     process.stdin.setEncoding('utf8');
     process.stdin.on("data", function(data) {
       received += data;
     });
     process.stdin.end();
-    test.ok(process.stdin._readableState.ended, "stream should be 'ended'.");
-    test.ok(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
+    assert(process.stdin._readableState.ended, "stream should be 'ended'.");
+    assert(process.stdin._readableState.endEmitted, "'end' event should be dispatched.");
     process.stdin.reset(true);
 
     process.stdin.on("data", function(data) {
       received += data;
     });
 
-    test.ok(!process.stdin._readableState.ended, "'ended' flag should be reset.");
-    test.ok(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
+    assert(!process.stdin._readableState.ended, "'ended' flag should be reset.");
+    assert(!process.stdin._readableState.endEmitted, "'endEmitted' flag should be reset.");
 
-    test.doesNotThrow(function() {
+    assert.doesNotThrow(function() {
       process.stdin.send("Please don't throw, little lamb!");
     }, "should not throw when sending data after end when reset() called");
 
-    test.equal(received, "Please don't throw, little lamb!");
-    test.done();
-  },
+    assert.equal(received, "Please don't throw, little lamb!");
+  });
 
-
-  "MockSTDIN#setRawMode(<String>)": function (test) {
-    function thrower () {
+  it("MockSTDIN#setRawMode(<String>)", function() {
+    assert.throws(function() {
       process.stdin.setRawMode('');
-    }
-    test.throws(thrower, TypeError);
-    test.done();
-  },
+    }, TypeError);
+  });
 
 
-  "MockSTDIN#SetRawMode(<Boolean>)": function (test) {
-    function notthrower () {
+  it("MockSTDIN#setRawMode(<Boolean>)", function() {
+    assert.doesNotThrow(function() {
       process.stdin.setRawMode(true);
       process.stdin.setRawMode(false);
       process.stdin.end();
-    }
-
-    test.doesNotThrow(notthrower);
-    test.done();
-  }
-};
+    });
+  });
+});

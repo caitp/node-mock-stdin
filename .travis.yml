@@ -5,7 +5,7 @@ node_js:
 
 install:
   - npm install
-  - npm install coveralls jscoverage nodeunit
+  - npm install coveralls jscoverage mocha-lcov-reporter
 
 script:
   tools/travis.sh
