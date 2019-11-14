@@ -4,8 +4,8 @@ node_js:
   - node
 
 install:
-  time npm install
-  time npm install coveralls jscoverage nodeunit
+  - npm install
+  - npm install coveralls jscoverage nodeunit
 
 script:
   tools/travis.sh
