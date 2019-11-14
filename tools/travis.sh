@@ -9,10 +9,10 @@ node_modules/.bin/jscoverage lib
 
 # TODO: Only run tests once, and use a custom reporter which outputs both LCOV and text,
 # for Travis.
-node_modules/.bin/nodeunit test
+node_modules/.bin/mocha test
 STATUS=$?
 
-node_modules/.bin/nodeunit --reporter=lcov test > .lcov
+node_modules/.bin/mocha -R mocha-lcov-reporter test > .lcov
 
 cat .lcov | node_modules/.bin/coveralls
 
