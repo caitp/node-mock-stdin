@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mock STDIN file descriptor in Node.js",
   "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "mocha test/"
   },
